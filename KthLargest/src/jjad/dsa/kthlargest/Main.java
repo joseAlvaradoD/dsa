@@ -1,5 +1,7 @@
 package jjad.dsa.kthlargest;
 
+import java.util.Random;
+
 public class Main {
     /*
     Kth Largest/Smallest Number is an array
@@ -26,7 +28,7 @@ public class Main {
      */
 
     public static void main(String[] args){
-        int[] arr = {3,2,1,4,6,5};
+        int[] arr = {3,2,1,5,6,4};
         System.out.println(kthLargestBruteForceSolution(arr,2));
 
         arr = new int[] {3,2,3,1,2,4,5,5,6};
@@ -34,6 +36,17 @@ public class Main {
 
         arr = new int[] {-1,-1};
         System.out.println(kthLargestBruteForceSolution(arr,2));
+
+
+        arr = new int[] {3,2,1,5,6,4};
+        System.out.println(kthLargest(arr, 0, arr.length-1, 2));
+
+
+        arr = new int[] {3,2,3,1,2,4,5,5,6};
+        System.out.println(kthLargest(arr, 0, arr.length-1, 4));
+
+        arr = new int[] {-1,-1};
+        System.out.println(kthLargest(arr, 0, arr.length-1,2));
 
     }
 
@@ -65,4 +78,57 @@ public class Main {
         return ans;
     }
     //Quick select method
+    /*
+    int low the last position in array for
+    */
+
+    static int kthLargest(int[] arr, int low, int high, int k){
+
+        if(low == high){
+            return arr[low];
+        }
+
+        if(low < high){
+
+            Random randomNum = new Random();
+
+            int partitionIndex = low + randomNum.nextInt(high-low);
+
+            partitionIndex = partition(arr, low, high, partitionIndex);
+
+            if(partitionIndex == arr.length - k)
+                return arr[partitionIndex];
+
+            if(partitionIndex > arr.length - k)
+                return kthLargest(arr, low, partitionIndex-1, k);
+
+            return kthLargest(arr,partitionIndex+1, high, k);
+        }
+        return Integer.MIN_VALUE;
+    }
+
+    public static int partition(int[] arr, int low, int high, int partitionIndex){
+        int pivot = arr[partitionIndex];
+
+        swap(arr, partitionIndex, high);
+
+        int i = low-1;
+
+        for(int j = low; j < high; j++){
+            if(arr[j] < pivot){
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        i++;
+        swap(arr, i, high);
+        return i;
+    }
+
+    static void swap(int[] arr, int i, int j){
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
 }
