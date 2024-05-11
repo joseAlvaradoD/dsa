@@ -36,31 +36,27 @@ public class Main {
         }
     }
 
-    public static String longestSubstring(String str){
+    public static int longestSubstring(String str){
 
         if(str.length() == 1){
-            return str;
+            return str.length();
         }
-        //this variable can be interchange for a char array
-        StringBuilder sbAns = new StringBuilder();
-        byte set[] = new byte[128];
+
+        int ans = 0;
+        Map<Character, Integer> map = new HashMap<>();
         final char[] chars = str.toCharArray();
-        String ans = "";
+        int left = 0;
+        int right;
 
-        for(int right = 0; right < chars.length; right++){
-            if(set[chars[right]] == 0){
-                set[chars[right]] = 1;
-                sbAns.append(chars[right]);
-            }else{
-                ans = ans.length()<sbAns.toString().length()? sbAns.toString(): ans;
-
-                sbAns = new StringBuilder(sbAns.toString().substring(sbAns.toString().indexOf(chars[right]) + 1));
-
-                sbAns.append(chars[right]);
+        for(right = 0; right < chars.length; right++){
+            if(map.containsKey(chars[right])){
+               left = Math.max(map.get(chars[right]), left);
             }
-        }
+            ans = Math.max(ans, (right-left));
 
-        ans = ans.length()<sbAns.toString().length()? sbAns.toString(): ans;
+
+            map.put(chars[right], right);
+        }
 
         return ans;
     }
