@@ -9,7 +9,7 @@ public class StackImpl<T> implements Stack<T> {
 
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        Stack<Integer> stack = new StackImpl<>(Integer.class,1);
+        Stack<Integer> stack = new StackImpl<>(1);
 
         System.out.println(stack.peek());
         System.out.println(stack.pop());
@@ -23,11 +23,11 @@ public class StackImpl<T> implements Stack<T> {
     }
 
 
-    private T[] array;
-    private int idx = -1;
+    private Object[] array;
+    private int topIndex = -1;
 
-    public StackImpl (Class<T> c, int size){
-        this.array = (T[]) Array.newInstance(c, size);
+    public StackImpl (int size){
+        this.array = new Object[size];
     }
 
     @Override
@@ -35,16 +35,16 @@ public class StackImpl<T> implements Stack<T> {
         if(isFull()){
             this.array = Arrays.copyOf(this.array, this.array.length*2);
         }
-        this.array[this.idx+1] = t;
-        this.idx++;
+        this.array[this.topIndex +1] = t;
+        this.topIndex++;
     }
 
     @Override
     public T pop() {
         if(!isEmpty()){
-            T t = this.array[this.idx];
-            this.array[this.idx] = null;
-            this.idx--;
+            T t = (T) this.array[this.topIndex];
+            this.array[this.topIndex] = null;
+            this.topIndex--;
             return t;
         }
         return null;
@@ -53,18 +53,18 @@ public class StackImpl<T> implements Stack<T> {
     @Override
     public T peek() {
         if(!isEmpty()){
-            return this.array[this.idx];
+            return (T) this.array[this.topIndex];
         }
         return null;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.idx < 0;
+        return this.topIndex < 0;
     }
 
     @Override
     public boolean isFull() {
-        return this.idx >= this.array.length-1;
+        return this.topIndex >= this.array.length-1;
     }
 }
