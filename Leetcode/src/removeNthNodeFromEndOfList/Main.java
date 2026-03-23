@@ -1,0 +1,63 @@
+package removeNthNodeFromEndOfList;
+
+/*
+    https://leetcode.com/problems/remove-nth-node-from-end-of-list
+    Linked List
+    Two Pointers
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        ListNode listNode = Solution.createListNode(new int[]{1,2,3,4,5});
+        Solution.print(solution.removeNthFromEnd(listNode,2));
+    }
+}
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast = head;
+        ListNode slow = head;
+
+        for(int i = 1; i <= n; i++){
+            fast = fast.next;
+        }
+
+        if(fast == null){
+            return head.next;
+        }
+        while(fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+
+        return head;
+    }
+    public static ListNode createListNode(int[] nums){
+        ListNode head = new ListNode(nums[0]);
+        ListNode dummy = head;
+        for (int i = 1; i < nums.length ; i++) {
+            dummy.next = new ListNode(nums[i]);
+            dummy = dummy.next;
+        }
+
+        return head;
+    }
+
+    public static void print(ListNode dummy){
+        while(dummy != null){
+            System.out.print(dummy.val+", ");
+            dummy = dummy.next;
+        }
+        System.out.println();
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
