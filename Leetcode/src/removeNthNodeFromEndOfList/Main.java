@@ -6,11 +6,13 @@ package removeNthNodeFromEndOfList;
     Two Pointers
  */
 
+import utils.ListNode;
+
 public class Main {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        ListNode listNode = Solution.createListNode(new int[]{1,2,3,4,5});
-        Solution.print(solution.removeNthFromEnd(listNode,2));
+        ListNode listNode = ListNode.createListNode(new int[]{1,2,3,4,5});
+        ListNode.print(solution.removeNthFromEnd(listNode,2));
     }
 }
 
@@ -34,30 +36,5 @@ class Solution {
 
         return head;
     }
-    public static ListNode createListNode(int[] nums){
-        ListNode head = new ListNode(nums[0]);
-        ListNode dummy = head;
-        for (int i = 1; i < nums.length ; i++) {
-            dummy.next = new ListNode(nums[i]);
-            dummy = dummy.next;
-        }
 
-        return head;
-    }
-
-    public static void print(ListNode dummy){
-        while(dummy != null){
-            System.out.print(dummy.val+", ");
-            dummy = dummy.next;
-        }
-        System.out.println();
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
