@@ -2,6 +2,10 @@ package addTwoNumbers;
 
 /*
     https://leetcode.com/problems/add-two-numbers
+    Principal
+    Linked List
+    Math
+    Recursion
  */
 public class Main {
 
