@@ -1,5 +1,7 @@
 package validAnagram;
 
+import java.util.Arrays;
+
 /*
     https://leetcode.com/problems/valid-anagram
     Hash Table
@@ -18,18 +20,14 @@ public class Main {
 class Solution {
     public boolean isAnagram(String s, String t) {
         if(s.length() != t.length()) return false;
-        char[] strS = new char[28];
-        char[] strT = new char[28];
+        char[] strS = new char[26];
+        char[] strT = new char[26];
 
         for (int i = 0; i < s.length(); i++) {
             strS[s.charAt(i) - 'a']++;
             strT[t.charAt(i) - 'a']++;
         }
 
-        for (int i = 0; i < strS.length; i++) {
-            if(strT[i] != strS[i]) return false;
-        }
-
-        return true;
+        return Arrays.equals(strT, strS);
     }
 }
