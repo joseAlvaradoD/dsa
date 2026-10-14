@@ -51,4 +51,52 @@ class Solution {
         if(quotient == 1) listNode.next = new ListNode(quotient);
         return head;
     }
+
+    public ListNode addTwoNumbers_2(ListNode l1, ListNode l2) {
+        ListNode currentSum = new ListNode();
+        ListNode sumHead = currentSum;
+        int coefficient = 0;
+
+        while (l1 != null && l2 != null) {
+
+            int sum = l1.val + l2.val + coefficient;
+            coefficient = sum / 10;
+
+            currentSum.next = new ListNode(sum % 10);
+            currentSum = currentSum.next;
+
+            l1 = l1.next;
+            l2 = l2.next;
+
+        }
+
+        while (l1 != null) {
+
+            int sum = l1.val + coefficient;
+            coefficient = sum / 10;
+
+            currentSum.next = new ListNode(sum % 10);
+            currentSum = currentSum.next;
+
+            l1 = l1.next;
+
+        }
+
+        while (l2 != null) {
+
+            int sum = l2.val + coefficient;
+            coefficient = sum / 10;
+
+            currentSum.next = new ListNode(sum % 10);
+            currentSum = currentSum.next;
+
+            l2 = l2.next;
+        }
+
+        if (coefficient > 0) {
+            currentSum.next = new ListNode(coefficient);
+        }
+
+        return sumHead.next;
+    }
 }
